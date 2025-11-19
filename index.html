@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Library System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <header>
+        <h1>School Library System</h1>
+        <img id="school-logo" src="" alt="School Logo">
+    </header>
+
+    <!-- Logo URL Input -->
+    <div class="logo-input">
+        <input type="text" id="logoURL" placeholder="Paste logo image URL here">
+        <button onclick="updateLogo()">Apply Logo</button>
+    </div>
+
+    <!-- Admin Button -->
+    <button id="adminBtn" onclick="openAdminLogin()">Admin</button>
+
+    <!-- Scanner Section -->
+    <section class="scanner">
+        <h2>Scan or Enter Book Barcode</h2>
+        <input type="text" id="barcodeInput" placeholder="Scan barcode here" autofocus>
+        <button onclick="processBarcode()">Submit</button>
+    </section>
+
+    <!-- Red Warning Popup -->
+    <div id="warningPopup" class="popup">
+        <p>You must return this book within <b>2 weeks</b>.</p>
+        <button onclick="confirmBorrow()">OK</button>
+        <button onclick="closeWarning()">Cancel</button>
+    </div>
+
+    <!-- Mode Buttons -->
+    <div class="modes">
+        <button onclick="setMode('borrow')">Borrow</button>
+        <button onclick="setMode('return')">Return</button>
+        <button onclick="setMode('info')">Info</button>
+    </div>
+
+    <!-- Output Section -->
+    <section id="output"></section>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLogin" class="modal">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <input type="password" id="adminPassword" placeholder="Enter password">
+            <button onclick="checkAdmin()">Login</button>
+            <button class="close" onclick="closeAdminLogin()">Close</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="modal">
+        <div class="modal-content">
+            <h2>Admin Panel</h2>
+
+            <h3>Add New Book</h3>
+            <input id="newTitle" placeholder="Title">
+            <input id="newAuthor" placeholder="Author">
+            <input id="newDate" placeholder="Release Date">
+            <input id="newTopic" placeholder="Topic">
+            <button onclick="addBook()">Add Book</button>
+
+            <h3>Edit or Remove Book</h3>
+            <input id="editBarcode" placeholder="Barcode">
+            <button onclick="loadBookForEdit()">Load</button>
+
+            <div id="editSection" style="display:none;">
+                <input id="editTitle">
+                <input id="editAuthor">
+                <input id="editDate">
+                <input id="editTopic">
+                <button onclick="saveEdit()">Save</button>
+                <button onclick="removeBook()">Remove</button>
+            </div>
+
+            <h3>Barcode Generator</h3>
+            <button onclick="generateBarcode()">Generate New Barcode</button>
+            <p id="generatedBarcode"></p>
+
+            <button class="close" onclick="closeAdminPanel()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

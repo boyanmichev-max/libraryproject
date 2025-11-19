@@ -1,5 +1,5 @@
 // -------------------------------
-// LOCAL STORAGE SETUP
+// LOCAL STORAGE
 // -------------------------------
 if (!localStorage.getItem("books")) {
     localStorage.setItem("books", JSON.stringify([]));
@@ -10,7 +10,7 @@ let selectedBook = null;
 let pendingBarcode = null;
 
 // -------------------------------
-// LOGO UPDATE
+// LOGO
 // -------------------------------
 function updateLogo() {
     document.getElementById("school-logo").src =
@@ -18,15 +18,15 @@ function updateLogo() {
 }
 
 // -------------------------------
-// MODE SWITCHING
+// MODE
 // -------------------------------
 function setMode(m) {
     mode = m;
-    document.getElementById("output").innerHTML = `Mode set to: <b>${m}</b>`;
+    document.getElementById("output").innerHTML = `<h3>Mode: ${m}</h3>`;
 }
 
 // -------------------------------
-// PROCESS BARCODE
+// BARCODE PROCESSING
 // -------------------------------
 function processBarcode() {
     const code = document.getElementById("barcodeInput").value.trim();
@@ -34,26 +34,20 @@ function processBarcode() {
     const book = books.find(b => b.barcode === code);
 
     if (!book) {
-        document.getElementById("output").innerHTML = "Book not found.";
+        document.getElementById("output").innerHTML = "<p>Book not found.</p>";
         return;
     }
 
     selectedBook = book;
     pendingBarcode = code;
 
-    if (mode === "borrow") {
-        showWarning();
-    }
-    else if (mode === "return") {
-        returnBook(book);
-    }
-    else if (mode === "info") {
-        showBookInfo(book);
-    }
+    if (mode === "borrow") showWarning();
+    if (mode === "return") returnBook(book);
+    if (mode === "info") showBookInfo(book);
 }
 
 // -------------------------------
-// WARNING POPUP
+// BORROW POPUP
 // -------------------------------
 function showWarning() {
     document.getElementById("warningPopup").style.display = "block";
@@ -64,15 +58,12 @@ function closeWarning() {
 }
 
 // -------------------------------
-// CONFIRM BORROW
+// BORROW CONFIRM
 // -------------------------------
 function confirmBorrow() {
     closeWarning();
-
     let books = JSON.parse(localStorage.getItem("books"));
     let book = books.find(b => b.barcode === pendingBarcode);
-
-    if (!book) return;
 
     book.status = "borrowed";
     book.borrowDate = Date.now();
@@ -80,24 +71,25 @@ function confirmBorrow() {
     book.extended = false;
 
     localStorage.setItem("books", JSON.stringify(books));
+
     document.getElementById("output").innerHTML =
-        `Borrowed: <b>${book.title}</b><br>Due in 14 days.`;
+        `<h3>Borrowed: ${book.title}</h3><p>Due in 14 days.</p>`;
 }
 
 // -------------------------------
-// RETURN BOOK (with extension option)
+// RETURN / EXTEND LOGIC
 // -------------------------------
 function returnBook(book) {
+
     if (book.status === "available") {
         document.getElementById("output").innerHTML =
-            "This book is already available.";
+            "<p>This book is already available.</p>";
         return;
     }
 
-    // If extension still allowed
     if (!book.extended) {
         const wantsExtension = confirm(
-            "Would you like to extend the loan by 7 days?"
+            "Extend the loan by 7 days?"
         );
 
         if (wantsExtension) {
@@ -105,19 +97,18 @@ function returnBook(book) {
             book.extended = true;
             saveBooks();
             document.getElementById("output").innerHTML =
-                "Loan extended by 7 days.";
+                "<p>Loan extended by 7 days.</p>";
             return;
         }
     }
 
-    // Final return
     book.status = "available";
     book.borrowDate = null;
     book.dueDate = null;
 
     saveBooks();
     document.getElementById("output").innerHTML =
-        "Book returned successfully.";
+        "<p>Book returned.</p>";
 }
 
 function saveBooks() {
@@ -125,15 +116,15 @@ function saveBooks() {
 }
 
 // -------------------------------
-// BOOK INFO
+// INFO
 // -------------------------------
 function showBookInfo(book) {
     document.getElementById("output").innerHTML = `
-        <b>${book.title}</b><br>
-        Author: ${book.author}<br>
-        Release Date: ${book.date}<br>
-        Topic: ${book.topic}<br>
-        Status: ${book.status}<br>
+        <h3>${book.title}</h3>
+        <p><b>Author:</b> ${book.author}</p>
+        <p><b>Release Date:</b> ${book.date}</p>
+        <p><b>Topic:</b> ${book.topic}</p>
+        <p><b>Status:</b> ${book.status}</p>
     `;
 }
 
@@ -149,13 +140,10 @@ function closeAdminLogin() {
 }
 
 function checkAdmin() {
-    const pass = document.getElementById("adminPassword").value;
-    if (pass === "admin") {
+    if (document.getElementById("adminPassword").value === "admin") {
         closeAdminLogin();
         openAdminPanel();
-    } else {
-        alert("Incorrect password.");
-    }
+    } else alert("Incorrect password.");
 }
 
 // -------------------------------
@@ -173,13 +161,11 @@ function closeAdminPanel() {
 // ADD BOOK
 // -------------------------------
 function addBook() {
-    const books = JSON.parse(localStorage.getItem("books"));
-
     const newBook = {
-        title: document.getElementById("newTitle").value,
-        author: document.getElementById("newAuthor").value,
-        date: document.getElementById("newDate").value,
-        topic: document.getElementById("newTopic").value,
+        title: newTitle.value,
+        author: newAuthor.value,
+        date: newDate.value,
+        topic: newTopic.value,
         barcode: generateBarcodeNumber(),
         status: "available",
         borrowDate: null,
@@ -187,66 +173,61 @@ function addBook() {
         extended: false
     };
 
+    let books = JSON.parse(localStorage.getItem("books"));
     books.push(newBook);
     localStorage.setItem("books", JSON.stringify(books));
 
-    alert("Book added! Barcode: " + newBook.barcode);
+    alert("Book added. Barcode: " + newBook.barcode);
 }
 
 // -------------------------------
 // EDIT BOOK
 // -------------------------------
 function loadBookForEdit() {
-    const code = document.getElementById("editBarcode").value;
-    const books = JSON.parse(localStorage.getItem("books"));
-    const book = books.find(b => b.barcode === code);
+    let code = editBarcode.value;
+    let books = JSON.parse(localStorage.getItem("books"));
+    let book = books.find(b => b.barcode == code);
 
-    if (!book) {
-        alert("Book not found.");
-        return;
-    }
+    if (!book) { alert("Not found"); return; }
 
-    document.getElementById("editSection").style.display = "block";
+    editSection.style.display = "flex";
 
-    document.getElementById("editTitle").value = book.title;
-    document.getElementById("editAuthor").value = book.author;
-    document.getElementById("editDate").value = book.date;
-    document.getElementById("editTopic").value = book.topic;
+    editTitle.value = book.title;
+    editAuthor.value = book.author;
+    editDate.value = book.date;
+    editTopic.value = book.topic;
 }
 
 function saveEdit() {
-    const code = document.getElementById("editBarcode").value;
-    const books = JSON.parse(localStorage.getItem("books"));
-    const book = books.find(b => b.barcode === code);
+    let code = editBarcode.value;
+    let books = JSON.parse(localStorage.getItem("books"));
+    let book = books.find(b => b.barcode == code);
 
-    book.title = document.getElementById("editTitle").value;
-    book.author = document.getElementById("editAuthor").value;
-    book.date = document.getElementById("editDate").value;
-    book.topic = document.getElementById("editTopic").value;
+    book.title = editTitle.value;
+    book.author = editAuthor.value;
+    book.date = editDate.value;
+    book.topic = editTopic.value;
 
     localStorage.setItem("books", JSON.stringify(books));
-    alert("Book updated!");
+    alert("Updated!");
 }
 
 function removeBook() {
-    const code = document.getElementById("editBarcode").value;
+    let code = editBarcode.value;
     let books = JSON.parse(localStorage.getItem("books"));
-
     books = books.filter(b => b.barcode !== code);
     localStorage.setItem("books", JSON.stringify(books));
-
-    alert("Book removed.");
+    alert("Removed.");
 }
 
 // -------------------------------
-// BARCODE GENERATOR
+// BARCODE GEN
 // -------------------------------
 function generateBarcodeNumber() {
     return Math.floor(Math.random() * 9000000000) + 1000000000;
 }
 
 function generateBarcode() {
-    const newCode = generateBarcodeNumber();
-    document.getElementById("generatedBarcode").innerText =
-        "Generated Barcode: " + newCode;
+    generatedBarcode.innerText =
+        "Generated Barcode: " + generateBarcodeNumber();
 }

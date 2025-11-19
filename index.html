@@ -8,85 +8,102 @@
 </head>
 <body>
 
-    <!-- Top Bar -->
-    <header>
+    <!-- Top Navigation Bar -->
+    <nav class="topbar">
         <h1>School Library System</h1>
         <img id="school-logo" src="" alt="School Logo">
-    </header>
+    </nav>
 
     <!-- Logo URL Input -->
-    <div class="logo-input">
-        <input type="text" id="logoURL" placeholder="Paste logo image URL here">
-        <button onclick="updateLogo()">Apply Logo</button>
+    <div class="card small-card">
+        <h2>School Logo</h2>
+        <div class="logo-input">
+            <input type="text" id="logoURL" placeholder="Paste logo image URL">
+            <button class="green-btn" onclick="updateLogo()">Apply Logo</button>
+        </div>
     </div>
 
-    <!-- Admin Button -->
-    <button id="adminBtn" onclick="openAdminLogin()">Admin</button>
-
-    <!-- Scanner Section -->
-    <section class="scanner">
+    <!-- Scanner Card -->
+    <div class="card">
         <h2>Scan or Enter Book Barcode</h2>
         <input type="text" id="barcodeInput" placeholder="Scan barcode here" autofocus>
-        <button onclick="processBarcode()">Submit</button>
-    </section>
+        <button class="blue-btn" onclick="processBarcode()">Submit</button>
+    </div>
 
-    <!-- Red Warning Popup -->
-    <div id="warningPopup" class="popup">
-        <p>You must return this book within <b>2 weeks</b>.</p>
-        <button onclick="confirmBorrow()">OK</button>
-        <button onclick="closeWarning()">Cancel</button>
+    <!-- Warning Popup -->
+    <div id="warningPopup" class="modal">
+        <div class="modal-content">
+            <h3>Borrowing Notice</h3>
+            <p>You must return this book within <b>2 weeks</b>.</p>
+            <div class="modal-buttons">
+                <button class="green-btn" onclick="confirmBorrow()">OK</button>
+                <button class="gray-btn" onclick="closeWarning()">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <!-- Mode Buttons -->
-    <div class="modes">
-        <button onclick="setMode('borrow')">Borrow</button>
-        <button onclick="setMode('return')">Return</button>
-        <button onclick="setMode('info')">Info</button>
+    <div class="card">
+        <h2>Actions</h2>
+        <div class="button-group">
+            <button class="blue-btn" onclick="setMode('borrow')">Borrow</button>
+            <button class="green-btn" onclick="setMode('return')">Return</button>
+            <button class="gray-btn" onclick="setMode('info')">Info</button>
+        </div>
     </div>
 
-    <!-- Output Section -->
-    <section id="output"></section>
+    <!-- Output Card -->
+    <div id="output" class="card"></div>
 
-    <!-- Admin Login Modal -->
+    <!-- Admin Button -->
+    <button id="adminBtn" class="admin-button" onclick="openAdminLogin()">Admin</button>
+
+    <!-- Admin Login -->
     <div id="adminLogin" class="modal">
         <div class="modal-content">
             <h2>Admin Login</h2>
             <input type="password" id="adminPassword" placeholder="Enter password">
-            <button onclick="checkAdmin()">Login</button>
-            <button class="close" onclick="closeAdminLogin()">Close</button>
+            <div class="modal-buttons">
+                <button class="blue-btn" onclick="checkAdmin()">Login</button>
+                <button class="gray-btn" onclick="closeAdminLogin()">Close</button>
+            </div>
         </div>
     </div>
 
     <!-- Admin Panel -->
     <div id="adminPanel" class="modal">
-        <div class="modal-content">
+        <div class="modal-content large">
             <h2>Admin Panel</h2>
 
             <h3>Add New Book</h3>
-            <input id="newTitle" placeholder="Title">
-            <input id="newAuthor" placeholder="Author">
-            <input id="newDate" placeholder="Release Date">
-            <input id="newTopic" placeholder="Topic">
-            <button onclick="addBook()">Add Book</button>
+            <div class="input-row">
+                <input id="newTitle" placeholder="Title">
+                <input id="newAuthor" placeholder="Author">
+                <input id="newDate" placeholder="Release Date">
+                <input id="newTopic" placeholder="Topic">
+                <button class="green-btn" onclick="addBook()">Add Book</button>
+            </div>
 
             <h3>Edit or Remove Book</h3>
-            <input id="editBarcode" placeholder="Barcode">
-            <button onclick="loadBookForEdit()">Load</button>
+            <div class="input-row">
+                <input id="editBarcode" placeholder="Barcode">
+                <button class="blue-btn" onclick="loadBookForEdit()">Load</button>
+            </div>
 
-            <div id="editSection" style="display:none;">
+            <div id="editSection" class="input-row" style="display:none;">
                 <input id="editTitle">
                 <input id="editAuthor">
                 <input id="editDate">
                 <input id="editTopic">
-                <button onclick="saveEdit()">Save</button>
-                <button onclick="removeBook()">Remove</button>
+                <button class="green-btn" onclick="saveEdit()">Save</button>
+                <button class="gray-btn" onclick="removeBook()">Remove</button>
             </div>
 
             <h3>Barcode Generator</h3>
-            <button onclick="generateBarcode()">Generate New Barcode</button>
+            <button class="blue-btn" onclick="generateBarcode()">Generate New Barcode</button>
             <p id="generatedBarcode"></p>
 
-            <button class="close" onclick="closeAdminPanel()">Close</button>
+            <button class="gray-btn" onclick="closeAdminPanel()">Close</button>
         </div>
     </div>
 

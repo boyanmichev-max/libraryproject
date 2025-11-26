@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #ececec;
+    padding: 20px;
+}
+
+.menu button {
+    padding: 10px 15px;
+    margin: 5px;
+    background: #4a87d7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.panel {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 5px #bbb;
+}
+
+.panel input {
+    width: 80%;
+    padding: 8px;
+    margin: 6px 0;
+}
+
+#outputBox {
+    background: white;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 6px;
+    box-shadow: 0 0 4px #aaa;
+}

@@ -1,60 +1,69 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>School Library Tracker</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>School Library Tracker</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>School Library Tracker</h1>
 
-<div class="menu">
-    <button onclick="showPanel('studentsPanel')">Add Students</button>
-    <button onclick="showPanel('booksPanel')">Add Books</button>
-    <button onclick="showPanel('borrowPanel')">Log Borrow</button>
-    <button onclick="showPanel('returnPanel')">Return Book</button>
-    <button onclick="displayAll()">Display All</button>
-    <button onclick="clearStorage()">Clear All Storage</button>
+<h1 class="fade-in">School Library Tracker</h1>
+
+
+<div class="menu slide-down">
+<button onclick="showPanel('studentsPanel')">Add Students</button>
+<button onclick="showPanel('booksPanel')">Add Books</button>
+<button onclick="showPanel('borrowPanel')">Log Borrow</button>
+<button onclick="showPanel('returnPanel')">Return Book</button>
+<button onclick="displayAll()">Display All</button>
+<button class="danger" onclick="clearStorage()">Clear All Storage</button>
 </div>
+
 
 <!-- Students Panel -->
-<div id="studentsPanel" class="panel">
-    <h2>Add Student</h2>
-    <input id="studentName" placeholder="Student Name">
-    <input id="studentGrade" placeholder="Grade">
-    <button onclick="addStudent()">Save</button>
+<div id="studentsPanel" class="panel animated-panel">
+<h2>Add Student</h2>
+<input id="studentName" placeholder="Student Name">
+<input id="studentGrade" placeholder="Grade">
+<button onclick="addStudent()">Save</button>
 </div>
+
 
 <!-- Books Panel -->
-<div id="booksPanel" class="panel">
-    <h2>Add Book</h2>
-    <input id="bookName" placeholder="Book Title">
-    <input id="isbn" placeholder="ISBN">
-    <input id="author" placeholder="Author">
-    <input id="publisher" placeholder="Publisher">
-    <input id="year" placeholder="Year">
-    <button onclick="addBook()">Save</button>
+<div id="booksPanel" class="panel animated-panel">
+<h2>Add Book</h2>
+<input id="bookName" placeholder="Book Title">
+<input id="isbn" placeholder="ISBN">
+<input id="author" placeholder="Author">
+<input id="publisher" placeholder="Publisher">
+<input id="year" placeholder="Year">
+<button onclick="addBook()">Save</button>
 </div>
+
 
 <!-- Borrow Panel -->
-<div id="borrowPanel" class="panel">
-    <h2>Log Borrow</h2>
-    <input id="borrowStudent" placeholder="Student Name">
-    <input id="borrowBook" placeholder="Book Title">
-    <input id="borrowDate" type="date">
-    <button onclick="borrowBook()">Submit</button>
+<div id="borrowPanel" class="panel animated-panel">
+<h2>Log Borrow</h2>
+<input id="borrowStudent" placeholder="Student Name">
+<input id="borrowBook" placeholder="Book Title">
+<input id="borrowDate" type="date">
+<button onclick="borrowBook()">Submit</button>
 </div>
+
 
 <!-- Return Panel -->
-<div id="returnPanel" class="panel">
-    <h2>Return Book</h2>
-    <input id="returnBook" placeholder="Book Title">
-    <button onclick="returnBook()">Submit</button>
+<div id="returnPanel" class="panel animated-panel">
+<h2>Return Book</h2>
+<input id="returnBook" placeholder="Book Title">
+<button onclick="returnBook()">Submit</button>
 </div>
 
-<h2>Output</h2>
-<div id="outputBox"></div>
+
+<h2 class="fade-in">Output</h2>
+<div id="outputBox" class="animated-panel"></div>
+
 
 <script src="script.js"></script>
 </body>

@@ -1,38 +1,92 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #ececec;
-    padding: 20px;
+<style>
+
+
+h1, h2 {
+text-align: center;
+color: #2c3e50;
 }
 
-.menu button {
-    padding: 10px 15px;
-    margin: 5px;
-    background: #4a87d7;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+
+.menu {
+text-align: center;
+margin-bottom: 20px;
 }
+.menu button {
+padding: 12px 18px;
+margin: 6px;
+background: #4a87d7;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 6px;
+transition: 0.3s;
+font-size: 15px;
+}
+.menu button:hover {
+background: #3b6eb3;
+transform: scale(1.05);
+}
+.menu .danger {
+background: #d9534f;
+}
+.menu .danger:hover {
+background: #b03a37;
+}
+
 
 .panel {
-    display: none;
-    margin-top: 15px;
-    padding: 15px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 0 5px #bbb;
+display: none;
+margin-top: 15px;
+padding: 20px;
+background: #ffffff;
+border-radius: 8px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+opacity: 0;
+transform: translateY(10px);
+transition: all 0.3s ease;
 }
+.panel.active {
+opacity: 1;
+transform: translateY(0);
+}
+
 
 .panel input {
-    width: 80%;
-    padding: 8px;
-    margin: 6px 0;
+width: 90%;
+padding: 10px;
+margin: 8px 0;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
+.panel button {
+margin-top: 10px;
 }
 
+
 #outputBox {
-    background: white;
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 6px;
-    box-shadow: 0 0 4px #aaa;
+background: #fff;
+padding: 15px;
+margin-top: 15px;
+border-radius: 8px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+transition: opacity 0.3s ease;
 }
+
+
+.fade-in {
+animation: fadeIn 0.6s ease-out;
+}
+.slide-down {
+animation: slideDown 0.5s ease-out;
+}
+
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+@keyframes slideDown {
+from { transform: translateY(-20px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+</style>
